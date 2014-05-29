@@ -1,0 +1,103 @@
+{% extends "template.html" %}
+{% block content %}
+	<div class="page">
+	<h1>Welcome to Ticket raising system</h1>
+	<a href="/logout">Logout</a>
+	
+	<div class="add-ticket">
+		<h3>Raise a ticket:</h3>
+		<table>
+		<tr>
+			<form action="{{ url_for('new_ticket') }}" method="post">
+				<td>
+					<label>Issue:</label>
+					<input name="issue" type="text">
+				</td>
+				<td>
+					<label>Due Date (mm/dd/yyyy):</label>
+					<input name="due_date" type="text" width="120px">
+				</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<label>Priority:</label>
+				<select name="priority" width="100px">
+					<option value="High">High</option>
+					<option value="Medium">Medium</option>
+					<option value="Low">Low</option>
+				</select>
+			</td>
+			
+			<td>
+				&nbsp;
+				&nbsp;
+				<input class="button" type="submit" name="save" value="Save">
+			</td>
+			
+			</form>
+		</tr>
+		</table>
+	</div>
+	<br><br><br>
+	<div class="entries">
+		<h2>Open Tickets:</h2>
+		<div class="datagrid">
+			<table>
+				<thread>
+				<tr>
+					<th width="300px"><b>Issue</b></th>
+					<th width="100px"><b>Due Date</b></th>
+					<th width="100px"><b>Priority</b></th>
+					<th><b>Actions</b></th>
+				</tr>
+				</thread>
+				
+				{% for o in open_tickets %}
+				<tr>
+					<td width="300px">{{o.issue}}</td>
+					<td width="100px">{{o.due_date}}</td>
+					<td width="100px">{{o.priority}}</td>
+					<td>
+						<a href="{{url_for('delete_ticket', ticket_id=o.ticket_id)}}">Delete</a>
+						&nbsp;
+						&nbsp;
+						<a href="{{url_for('complete', ticket_id=o.ticket_id)}}">Mark as complete</a>
+					</td>
+				</tr>
+				{% endfor %}
+				
+			</table>
+		</div>
+	</div>
+		<br><br>
+		
+	<div class="entries">
+		<h2>Closed Tickets:</h2>
+		<div class="datagrid">
+			<table>
+				<thread>
+				<tr>
+					<th width="300px"><b>Issue</b></th>
+					<th width="100px"><b>Due Date</b></th>
+					<th width="100px"><b>Priority</b></th>
+					<th><b>Actions</b></th>
+				</tr>
+				</thread>
+				
+				{% for c in closed_tickets %}
+				<tr>
+					<td width="300px">{{c.issue}}</td>
+					<td width="100px">{{c.due_date}}</td>
+					<td width="100px">{{c.priority}}</td>
+					<td>
+						<a href="{{url_for('delete_ticket', ticket_id=c.ticket_id)}}">Delete</a>					
+					</td>
+				</tr>
+				{% endfor %}
+				
+			</table>
+		</div>
+	</div>
+		
+{% endblock %}

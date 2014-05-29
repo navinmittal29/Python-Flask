@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Raise Ticket</title>
+		<link rel="stylesheet" type="text/css" href="/static/demo.css" />
+		<link rel="stylesheet" type="text/css" href="/static/style.css" />
+		
+	</head>
+	<body>
+		<br>
+		<div class="container">
+			{% for message in get_flashed_messages() %}
+				<div class=flash>
+					{{message}}
+				</div>
+			{% endfor %}
+			
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+</html>
